@@ -1,26 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { ProtectedRoute } from "@/app/ProtectedRoute";
+import { PublicRoute } from "@/app/PublicRoute";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { RegisterPage } from "@/features/auth/pages/RegisterPage";
-import { useAuth } from "@/features/auth/useAuth";
+import { DashboardPage } from "@/features/dashboard/pages/DashboardPage";
 
 export default function App() {
-  const { user, logout } = useAuth();
-
-  if (user) {
-    return (
-      <main className="p-8">
-        <h1 className="text-2xl font-bold">Hola, {user.fullName}</h1>
-        <Button className="mt-4" onClick={logout}>Cerrar sesión</Button>
-      </main>
-    );
-  }
-
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route element={<PublicRoute />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Route>
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );
 }
