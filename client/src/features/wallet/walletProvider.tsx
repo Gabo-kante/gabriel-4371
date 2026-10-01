@@ -1,14 +1,26 @@
 import { useCallback, useMemo, useState, type ReactNode } from "react";
 import { useAuth } from "@/features/auth/useAuth";
-import { emptyWallet, loadWallet, performRecharge } from "./walletService";
 import { WalletContext, type WalletContextValue } from "./walletContext";
+import { emptyWallet, loadWallet, performRecharge, type Wallet } from "./walletService";
+
+interface WalletState {
+  userId: string | null;
+  wallet: Wallet;
+}
+
+const readWallet = (userId: string | null): WalletState => ({
+  userId,
+  wallet: userId ? loadWallet(userId) : emptyWallet(),
+});
 
 export function WalletProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
-  // Contador que fuerza a releer el saldo desde localStorage tras cada recarga.
-  const [version, setVersion] = useState(0);
+  const userId = user?.id ?? null;
+  const [state, setState] = useState<WalletState>(() => readWallet(userId));
 
-  const wallet = useMemo(() => (user ? loadWallet(user.id) : emptyWallet()), [user, version]);
+  if (state.userId !== userId) {
+    setState(readWallet(userId));
+  }
 
   const recharge = useCallback<WalletContextValue["recharge"]>(
     async (input, options) => {
@@ -16,13 +28,13 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       try {
         return await performRecharge(user, input, options);
       } finally {
-        setVersion((current) => current + 1);
+        setState(readWallet(user.id));
       }
     },
     [user],
   );
 
-  const value = useMemo(() => ({ wallet, recharge }), [wallet, recharge]);
+  const value = useMemo(() => ({ wallet: state.wallet, recharge }), [state.wallet, recharge]);
 
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 }

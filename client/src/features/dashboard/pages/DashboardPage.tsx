@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
 import { BalanceCard } from "@/features/wallet/components/BalanceCard";
+import { BetsDonutChart } from "../components/BetsDonutCharts";
+import { RaceWinsBarChart } from "../components/RaceWinsBarChart";
 
 export function DashboardPage() {
   const { user, logout } = useAuth();
@@ -22,9 +24,22 @@ export function DashboardPage() {
       </header>
 
       <main className="mx-auto max-w-5xl space-y-6 p-4">
-        <h1 className="text-2xl font-bold">Hola, {user?.fullName}</h1>
-        <BalanceCard />
-      </main>
+          <h1 className="text-2xl font-bold">Hola, {user?.fullName}</h1>
+          <BalanceCard />
+
+          <section className="space-y-3" aria-labelledby="stats-title">
+            <div>
+              <h2 id="stats-title" className="text-lg font-semibold">Resumen del día</h2>
+              <p className="text-sm text-muted-foreground">
+                Datos simulados: no corresponden a apuestas reales de tu cuenta.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              <BetsDonutChart />
+              <RaceWinsBarChart />
+            </div>
+          </section>
+        </main>
     </div>
   );
 }
