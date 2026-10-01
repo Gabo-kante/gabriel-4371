@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AuthError } from "../authService";
 import { registerSchema, type RegisterInput } from "../schemas";
 import { useAuth } from "../useAuth";
-import { FormField } from "./FormField";
+import { FormField } from "../../../shared/FormField";
 
 export function RegisterForm() {
   const { register: registerUser } = useAuth();

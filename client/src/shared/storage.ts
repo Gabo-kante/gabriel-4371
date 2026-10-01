@@ -5,6 +5,7 @@ const PREFIX = "snail.";
 export const storageKeys = {
   users: "users",
   session: "session",
+  wallets: "wallets",
 } as const;
 
 export function readStorage<T>(key: string, schema: ZodType<T>, fallback: T): T {

@@ -3,6 +3,7 @@ import { rateLimit } from "express-rate-limit";
 import { createCharge } from "../controllers/snailpayController";
 import { simulateOutage } from "../middleware/simulateOutage";
 import { buildResponse, extractEcho } from "../services/snailpayResponse";
+import { simulateLatency } from "../middleware/simulateLatency";
 
 export function createSnailPayRouter() {
   const router = Router();
@@ -23,6 +24,6 @@ export function createSnailPayRouter() {
     },
   });
 
-  router.post("/charges", limiter, simulateOutage, createCharge);
+  router.post("/charges", limiter, simulateOutage, simulateLatency, createCharge);
   return router;
 }

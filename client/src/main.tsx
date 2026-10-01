@@ -5,13 +5,16 @@ import "./index.css";
 import App from "./App";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/features/auth/AuthProvider";
+import { WalletProvider } from "./features/wallet/walletProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
-        <Toaster richColors position="top-center" />
+        <WalletProvider>
+          <App />
+          <Toaster richColors position="top-center" />
+        </WalletProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

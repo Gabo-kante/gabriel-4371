@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AuthError } from "../authService";
 import { loginSchema, type LoginInput } from "../schemas";
 import { useAuth } from "../useAuth";
-import { FormField } from "./FormField";
+import { FormField } from "../../../shared/FormField";
 
 export function LoginForm() {
   const { login } = useAuth();

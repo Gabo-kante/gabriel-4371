@@ -21,6 +21,7 @@ const approvedPayload = {
 
 afterEach(() => {
   delete process.env.SNAILPAY_FORCE_DOWN;
+  delete process.env.SNAILPAY_SLOW_MS;
 });
 
 describe("POST /api/snailpay/charges", () => {
@@ -109,5 +110,16 @@ describe("POST /api/snailpay/charges", () => {
 
     expect(res.status).toBe(429);
     expect(res.body.status_detail).toBe("too_many_requests");
+  });
+
+  it("demora la respuesta con el monto 13.13 y luego aprueba", async () => {
+    process.env.SNAILPAY_SLOW_MS = "60";
+    const startedAt = Date.now();
+    const res = await request(createApp())
+      .post(ENDPOINT)
+      .send({ ...approvedPayload, amount: 13.13 });
+
+    expect(Date.now() - startedAt).toBeGreaterThanOrEqual(50);
+    expect(res.status).toBe(201);
   });
 });

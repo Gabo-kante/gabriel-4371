@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/features/auth/useAuth";
+import { BalanceCard } from "@/features/wallet/components/BalanceCard";
 
 export function DashboardPage() {
   const { user, logout } = useAuth();
@@ -23,16 +23,7 @@ export function DashboardPage() {
 
       <main className="mx-auto max-w-5xl space-y-6 p-4">
         <h1 className="text-2xl font-bold">Hola, {user?.fullName}</h1>
-
-        <Card className="max-w-sm">
-          <CardHeader>
-            <CardDescription>Saldo actual</CardDescription>
-            <CardTitle className="text-3xl">$0.00</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">
-            La recarga con SnailPay se agregará más adelante.
-          </CardContent>
-        </Card>
+        <BalanceCard />
       </main>
     </div>
   );
