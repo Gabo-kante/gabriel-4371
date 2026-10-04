@@ -5,18 +5,24 @@ import { LoginForm } from "../components/LoginForm";
 export function LoginPage() {
   return (
     <AuthCard
-      title="Bienvenido de nuevo"
-      description="Inicia sesión para entrar a tu dashboard"
+      title="Bienvenido a la pista"
+      description="Inicia sesión para ver tu saldo y el resumen de las carreras"
       footer={
         <>
-          ¿No tienes cuenta?
-          <Link to="/register" className="ml-1 font-medium text-emerald-700 underline">
-            Regístrate
+          ¿Aún no tienes cuenta?
+          <Link
+            to="/register"
+            className="ml-1 font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+          >
+            Crea una
           </Link>
         </>
       }
     >
       <LoginForm />
+      <p className="mt-4 text-center text-xs text-muted-foreground">
+        Aplicación de demostración: tu cuenta y tu saldo se guardan solo en este navegador.
+      </p>
     </AuthCard>
   );
 }

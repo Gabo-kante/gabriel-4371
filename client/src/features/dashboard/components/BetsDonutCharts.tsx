@@ -5,8 +5,8 @@ import { getBetOutcomes } from "../simulatedData";
 const outcomes = getBetOutcomes();
 
 const data = [
-  { name: "Ganadas", value: outcomes.won, color: "#059669" },
-  { name: "Perdidas", value: outcomes.lost, color: "#e11d48" },
+  { name: "Ganadas", value: outcomes.won, color: "#34d399" },
+  { name: "Perdidas", value: outcomes.lost, color: "#fb7185" },
 ];
 
 export function BetsDonutChart() {
@@ -27,8 +27,15 @@ export function BetsDonutChart() {
                   <Cell key={entry.name} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
-              <Legend />
+              <Tooltip
+                contentStyle={{
+                  background: "var(--card)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 8,
+                }}
+                itemStyle={{ color: "var(--foreground)" }}
+              />
+              <Legend formatter={(value) => <span style={{ color: "var(--foreground)" }}>{value}</span>} />
             </PieChart>
           </ResponsiveContainer>
         </div>

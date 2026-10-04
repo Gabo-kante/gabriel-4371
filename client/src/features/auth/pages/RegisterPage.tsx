@@ -6,11 +6,14 @@ export function RegisterPage() {
   return (
     <AuthCard
       title="Crea tu cuenta"
-      description="Regístrate para empezar con tu saldo en $0"
+      description="Es una cuenta de demostración. Empiezas con un saldo de $0.00"
       footer={
         <>
           ¿Ya tienes cuenta?
-          <Link to="/login" className="ml-1 font-medium text-emerald-700 underline">
+          <Link
+            to="/login"
+            className="ml-1 font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+          >
             Inicia sesión
           </Link>
         </>

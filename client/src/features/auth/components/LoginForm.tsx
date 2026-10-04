@@ -36,7 +36,7 @@ export function LoginForm() {
         <p role="alert" className="text-sm text-destructive">{formError}</p>
       )}
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" className="w-full transition-opacity hover:opacity-90" disabled={isSubmitting}>
         {isSubmitting ? "Entrando…" : "Iniciar sesión"}
       </Button>
     </form>

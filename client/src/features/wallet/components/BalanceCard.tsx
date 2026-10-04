@@ -11,13 +11,20 @@ export function BalanceCard() {
 
   return (
     <>
-      <Card className="max-w-sm">
+      <Card className="max-w-sm border-border/70 shadow-lg">
         <CardHeader>
           <CardDescription>Saldo actual</CardDescription>
-          <CardTitle className="text-3xl">{formatCents(wallet.balanceCents)}</CardTitle>
+          <CardTitle className="text-3xl">
+            {formatCents(wallet.balanceCents)}
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <Button onClick={() => setOpen(true)}>Recargar saldo</Button>
+          <Button onClick={() => setOpen(true)} className="w-full">
+            Recargar saldo
+          </Button>
+          <p className="text-xs text-muted-foreground">
+            Las recargas se procesan con SnailPay, una pasarela simulada. Usa solo datos ficticios.
+          </p>
         </CardContent>
       </Card>
       <RechargeDialog open={open} onOpenChange={setOpen} />

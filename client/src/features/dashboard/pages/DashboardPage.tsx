@@ -8,10 +8,10 @@ export function DashboardPage() {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-emerald-50">
-      <header className="border-b bg-white">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="border-b bg-card">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-2 font-semibold text-emerald-800">
+          <div className="flex items-center gap-2 font-semibold text-primary">
             <span aria-hidden="true">🐌</span> Snail Racing
           </div>
           <div className="flex items-center gap-3">

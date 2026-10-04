@@ -92,36 +92,76 @@ export function RechargeForm({ onClose }: { onClose: () => void }) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
-      <FormField id="cardholderName" label="Nombre en la tarjeta" autoComplete="cc-name"
-        error={errors.cardholderName?.message} {...register("cardholderName")} />
-      <FormField id="cardNumber" label="Número de tarjeta" inputMode="numeric" autoComplete="cc-number"
-        placeholder="1234 1234 1234 1234" error={errors.cardNumber?.message} {...register("cardNumber")} />
+      <FormField
+        id="cardholderName"
+        label="Nombre en la tarjeta"
+        autoComplete="cc-name"
+        error={errors.cardholderName?.message}
+        {...register("cardholderName")}
+      />
+      <FormField
+        id="cardNumber"
+        label="Número de tarjeta"
+        inputMode="numeric"
+        autoComplete="cc-number"
+        placeholder="1234 1234 1234 1234"
+        error={errors.cardNumber?.message}
+        {...register("cardNumber")}
+      />
 
       <div className="grid grid-cols-2 gap-4">
-        <FormField id="expirationDate" label="Vencimiento (MM/AA)" autoComplete="cc-exp"
-          placeholder="12/26" error={errors.expirationDate?.message} {...register("expirationDate")} />
-        <FormField id="cvv" label="CVV" type="password" inputMode="numeric" autoComplete="cc-csc"
-          error={errors.cvv?.message} {...register("cvv")} />
+        <FormField
+          id="expirationDate"
+          label="Vencimiento (MM/AA)"
+          autoComplete="cc-exp"
+          placeholder="12/26"
+          error={errors.expirationDate?.message}
+          {...register("expirationDate")}
+        />
+        <FormField
+          id="cvv"
+          label="CVV"
+          type="password"
+          inputMode="numeric"
+          autoComplete="cc-csc"
+          error={errors.cvv?.message}
+          {...register("cvv")}
+        />
       </div>
 
-      <FormField id="amount" label="Monto a recargar" inputMode="decimal" placeholder="250.00"
-        error={errors.amount?.message} {...register("amount")} />
+      <FormField
+        id="amount"
+        label="Monto a recargar"
+        inputMode="decimal"
+        placeholder="250.00"
+        error={errors.amount?.message}
+        {...register("amount")}
+      />
 
-      <div className="flex flex-col gap-2 text-sm">
-        <Button type="button" variant="link" className="h-auto justify-start p-0" onClick={fillTestCard}>
+      <div className="flex flex-col gap-3 text-sm">
+        <Button
+          type="button"
+          variant="link"
+          className="h-auto justify-start p-0 text-primary"
+          onClick={fillTestCard}
+        >
           Autocompletar tarjeta de prueba
         </Button>
         <label className="flex items-start gap-2 text-muted-foreground">
-          <input type="checkbox" className="mt-0.5" checked={simulateOutage}
-            onChange={(event) => setSimulateOutage(event.target.checked)} />
+          <input
+            type="checkbox"
+            className="mt-0.5 accent-primary"
+            checked={simulateOutage}
+            onChange={(event) => setSimulateOutage(event.target.checked)}
+          />
           <span>Simular caída de SnailPay (solo demostración)</span>
         </label>
       </div>
 
       {failure && (
-        <div role="alert" className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm">
+        <div role="alert" className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm">
           <p className="font-medium text-destructive">{failure.title}</p>
-          <p className="mt-1">{failure.message}</p>
+          <p className="mt-1 text-foreground/90">{failure.message}</p>
         </div>
       )}
 

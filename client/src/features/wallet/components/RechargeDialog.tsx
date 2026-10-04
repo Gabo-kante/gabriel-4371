@@ -9,10 +9,12 @@ interface RechargeDialogProps {
 export function RechargeDialog({ open, onOpenChange }: RechargeDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] overflow-y-auto border-border/70 bg-card shadow-2xl">
         <DialogHeader>
-          <DialogTitle>Recargar saldo</DialogTitle>
-          <DialogDescription>Pago simulado con SnailPay. Usa solo datos ficticios.</DialogDescription>
+          <DialogTitle className="text-xl">Recargar saldo</DialogTitle>
+          <DialogDescription>
+            Pago simulado con SnailPay. Usa solo datos ficticios.
+          </DialogDescription>
         </DialogHeader>
         <RechargeForm onClose={() => onOpenChange(false)} />
       </DialogContent>
