@@ -52,6 +52,8 @@ Otros comandos útiles: `npm run build` y `npm run lint -w client`.
 2. En el dashboard pulsa **Recargar saldo**.
 3. Usa **Autocompletar tarjeta de prueba**, escribe un nombre y un monto.
 
+Tarjeta de prueba aprobada: `1234 1234 1234 1234`, vencimiento `12/26`, CVV `543`.
+
 ## SnailPay: cómo reproducir cada respuesta
 
 Endpoint: `POST /api/snailpay/charges`
@@ -79,7 +81,7 @@ Estos dos últimos se devuelven porque la especificación lo pide; son siempre d
 | Tarjeta vencida | Otra tarjeta con fecha pasada, por ejemplo `01/20` | 402 | `rejected` | `expired_card` |
 | Fondos insuficientes | Tarjeta `4000000000009995` | 402 | `rejected` | `insufficient_funds` |
 | Tarjeta rechazada | Tarjeta `4000000000000002` o cualquier otra tarjeta bien formada | 402 | `rejected` | `card_declined` |
-| Demasiadas peticiones | Más de 30 cobros por minuto desde la misma IP | 429 | `error` | `too_many_requests` |
+| Demasiadas peticiones | Más de 30 peticiones por minuto a `/api/snailpay/charges` desde la misma IP | 429 | `error` | `too_many_requests` |
 | Sistema caído | Header `X-Simulate-Outage: true` o `SNAILPAY_FORCE_DOWN=true` | 503 | `error` | `service_unavailable` |
 | Respuesta lenta | Monto `13.13` (responde a los 12 s; el cliente se rinde a los 8 s) | 201 | `approved` | `accredited` |
 
@@ -94,6 +96,21 @@ dato bien formado que no coincide. Cuando un cobro no es aprobado, el saldo no s
 - **Timeout:** usa la tarjeta de éxito con el monto `13.13`. A los 8 segundos la interfaz
   informa que no pudo confirmar la operación y el saldo no cambia.
 - **Caída global:** arranca el backend con la variable `SNAILPAY_FORCE_DOWN=true`.
+
+### Reproducirlo con curl (bash)
+
+```bash
+curl -i -X POST http://localhost:3001/api/snailpay/charges \
+  -H "Content-Type: application/json" \
+  -d '{"card_number":"1234123412341234","expiration_date":"12/26","cvv":"543","cardholder_name":"Ana Perez","amount":250,"payer_id":"user-1","payer_email":"ana@example.com"}'
+```
+
+Para otros escenarios cambia el campo indicado en la tabla. Para la caída del sistema agrega
+`-H "X-Simulate-Outage: true"`. Para caída global:
+
+```bash
+SNAILPAY_FORCE_DOWN=true npm run dev -w server
+```
 
 ### Reproducirlo con curl (PowerShell)
 
@@ -140,3 +157,6 @@ server/   Express + TypeScript
   del estado de la operación.
 - **Datos del dashboard:** 6 caracoles, 6 carreras con un ganador cada una y 12 apuestas
   fijas. Las gráficas se calculan a partir de esos datos, así que son coherentes entre sí.
+- **Diseño:** tema oscuro propio (paleta verde y ámbar definida con variables de tema)
+  sobre componentes base de shadcn/ui. Los formularios, el dashboard, las gráficas y la
+  lógica son propios.
